@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IMAGE_NAME="ouroboros-html:latest"
+IMAGE_NAME="xhtml5x:latest"
 
 echo "=== Building Docker image ${IMAGE_NAME} ==="
 docker build -t "${IMAGE_NAME}" -f Dockerfile .

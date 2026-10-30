@@ -11,7 +11,7 @@ permissions:
   packages: write
 
 jobs:
-  ouroboros-pipeline:
+  xhtml5x-pipeline:
     name: Build, Verify Pipeline, & Publish GHCR Image
     runs-on: ubuntu-latest
 
@@ -32,26 +32,26 @@ jobs:
 
       - name: Build multi-runtime Docker image
         run: |
-          docker build -t ouroboros-html:latest -f Dockerfile .
+          docker build -t xhtml5x:latest -f Dockerfile .
 
       - name: Run all 20 compiler stages (Stages 0-19)
         run: |
-          docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace ouroboros-html:latest make all
+          docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace xhtml5x:latest make all
 
       - name: Run comprehensive HTML5 fixture suite
         run: |
-          docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace ouroboros-html:latest make test-suite
+          docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace xhtml5x:latest make test-suite
 
       - name: Run recursive 2-cycle Ouroboros idempotency loop
         run: |
-          docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace ouroboros-html:latest make ouroboros CYCLES=2
+          docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace xhtml5x:latest make ouroboros CYCLES=2
 
       - name: Tag and push image to GHCR
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          docker tag ouroboros-html:latest "ghcr.io/${REPO_LOWER}:latest"
-          docker tag ouroboros-html:latest "ghcr.io/${REPO_LOWER}:${{ github.sha }}"
+          docker tag xhtml5x:latest "ghcr.io/${REPO_LOWER}:latest"
+          docker tag xhtml5x:latest "ghcr.io/${REPO_LOWER}:${{ github.sha }}"
           docker push "ghcr.io/${REPO_LOWER}:latest"
           docker push "ghcr.io/${REPO_LOWER}:${{ github.sha }}"
 
@@ -59,6 +59,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ouroboros-generational-artifacts
+          name: xhtml5x-generational-artifacts
           path: artifacts/
           if-no-files-found: ignore

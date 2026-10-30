@@ -1,14 +1,16 @@
-# ouroboros-html
+# xhtml5x
 
-[![CI & Container Publish](https://github.com/spcbeck/ouroboros-html/actions/workflows/ci.yml/badge.svg)](https://github.com/spcbeck/ouroboros-html/actions/workflows/ci.yml)
-[![GHCR Image](https://img.shields.io/badge/GHCR-ouroboros--html-blue?logo=docker)](https://github.com/spcbeck/ouroboros-html/pkgs/container/ouroboros-html)
+[![CI & Container Publish](https://github.com/spcbeck/xhtml5x/actions/workflows/ci.yml/badge.svg)](https://github.com/spcbeck/xhtml5x/actions/workflows/ci.yml)
+[![GHCR Image](https://img.shields.io/badge/GHCR-xhtml5x-blue?logo=docker)](https://github.com/spcbeck/xhtml5x/pkgs/container/xhtml5x)
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 
-The fundamental theorem of software engineering has been described as: "Any problem in computer science can be solved with another level of indirection." (attributed to David Wheeler). Ouroboros HTML attempts to prove this theorem by compiling HTML through 20 incompatible programming languages and historical runtimes, terminating in functionally identical HTML5 output, or something.
+> **XHTML5X**: **eX**tensible **H**yper**T**ext **M**arkup **L**anguage **5** **eX**treme
 
-The theorem is frequently followed by "except for the problem of too many layers of indirection." This is where ouroboros HTML also seeks to prove that theorem wrong. 
+The fundamental theorem of software engineering has been described as: "Any problem in computer science can be solved with another level of indirection." (attributed to David Wheeler). **xhtml5x** attempts to prove this theorem by compiling HTML through 20 incompatible programming languages and historical runtimes, terminating in functionally identical HTML5 output, or something.
 
-But what's important is that you use ouroboros instead of HTML. This abstraction layer provides all the functionalty of HMTL5! What more can you ask for?
+The theorem is frequently followed by "except for the problem of too many layers of indirection." This is where **xhtml5x** also seeks to prove that theorem wrong. 
+
+But what's important is that you use **xhtml5x** instead of HTML. This abstraction layer provides all the functionalty of HMTL5! What more can you ask for?
 
 I absolutely definitely didn't use AI for any of this, and I understand every layer of the stack described below in the most minute details. Go ahead. Test me.
 
@@ -93,25 +95,25 @@ Pre-built multi-runtime container images are automatically published to the GitH
 
 ### 1. Run All 20 Compiler Stages
 ```bash
-docker run --rm ghcr.io/spcbeck/ouroboros-html:latest
+docker run --rm ghcr.io/spcbeck/xhtml5x:latest
 ```
 
 ### 2. Run Comprehensive HTML5 Fixture Suite
 Empirically verifies that the pipeline compiles diverse HTML structures (nested lists, multi-paragraphs, blockquotes):
 ```bash
-docker run --rm ghcr.io/spcbeck/ouroboros-html:latest make test-suite
+docker run --rm ghcr.io/spcbeck/xhtml5x:latest make test-suite
 ```
 
 ### 3. Run Recursive Ouroboros Idempotency Loop
 Demonstrates mathematical idempotency ($\forall k \in [1..N], \text{DOM}(\text{Pipeline}^k(S_0)) \equiv \text{DOM}(S_0)$) by feeding the output of Stage 18 back into Stage 0 for $N$ generations:
 ```bash
-docker run --rm ghcr.io/spcbeck/ouroboros-html:latest make ouroboros CYCLES=3
+docker run --rm ghcr.io/spcbeck/xhtml5x:latest make ouroboros CYCLES=3
 ```
 
 ### 4. Compile the Example App
 Compiles `example/index.html` through the entire 20-stage pipeline into `example/dist/index.html`:
 ```bash
-docker run --rm -v "$(pwd):/workspace" -w /workspace ghcr.io/spcbeck/ouroboros-html:latest make example
+docker run --rm -v "$(pwd):/workspace" -w /workspace ghcr.io/spcbeck/xhtml5x:latest make example
 ```
 
 ---

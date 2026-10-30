@@ -1,11 +1,11 @@
 .PHONY: all stages-0-6 stage0 stage1 stage2 stage3 stage4 stage5 stage6 stage7 stage8 stage9 stage10 stage11 stage12 stage13 stage14 stage15 stage16 stage17 stage18 stage19 clean docker-build docker-run ouroboros docker-ouroboros test-suite docker-test-suite example docker-example
 
-IMAGE_NAME ?= ouroboros-html:latest
+IMAGE_NAME ?= xhtml5x:latest
 CYCLES ?= 3
 
 example:
 	@echo "=========================================================="
-	@echo " [OUROBOROS-HTML] COMPILING EXAMPLE APP (example/index.html)"
+	@echo " [XHTML5X] COMPILING EXAMPLE APP (example/index.html)"
 	@echo "=========================================================="
 	mkdir -p example/dist
 	cp example/index.html stages/00_input/input.html
@@ -15,7 +15,7 @@ example:
 	cp fixtures/01_canonical.html stages/00_input/input.html
 	@echo ""
 	@echo "=========================================================="
-	@echo " [OUROBOROS-HTML] EXAMPLE COMPILED -> example/dist/index.html"
+	@echo " [XHTML5X] EXAMPLE COMPILED -> example/dist/index.html"
 	@echo " Payload: $$(cat example/dist/index.html)"
 	@echo "=========================================================="
 
@@ -42,7 +42,7 @@ docker-ouroboros:
 stages-0-6: stage0 stage1 stage2 stage3 stage4 stage5 stage6
 	@echo ""
 	@echo "=========================================================="
-	@echo " [OUROBOROS-HTML] STAGES 0-6 PIPELINE VERIFIED!"
+	@echo " [XHTML5X] STAGES 0-6 PIPELINE VERIFIED!"
 	@echo " Input:  $$(cat stages/00_input/input.html)"
 	@echo " Output: $$(cat stages/06_rust_wasmtime/output.txt)"
 	@echo "=========================================================="

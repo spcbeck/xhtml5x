@@ -28,7 +28,7 @@ CYAN = "\033[1;36m"
 
 def print_banner(cycles: int):
     print(f"\n{BOLD}{WHITE}╔══════════════════════════════════════════════════════════════════════════╗{RESET}")
-    print(f"{BOLD}{WHITE}║{RESET}  {BOLD}{RED}●{RESET} {BOLD}{YELLOW}▲{RESET} {BOLD}{BLUE}■{RESET}  {BOLD}{WHITE}OUROBOROS-HTML :: MULTI-GENERATION IDEMPOTENCY ENGINE{RESET}       {BOLD}{WHITE}║{RESET}")
+    print(f"{BOLD}{WHITE}║{RESET}  {BOLD}{RED}●{RESET} {BOLD}{YELLOW}▲{RESET} {BOLD}{BLUE}■{RESET}  {BOLD}{WHITE}XHTML5X :: MULTI-GENERATION IDEMPOTENCY ENGINE{RESET}              {BOLD}{WHITE}║{RESET}")
     print(f"{BOLD}{WHITE}╠══════════════════════════════════════════════════════════════════════════╣{RESET}")
     print(f"{BOLD}{WHITE}║{RESET}  Target Generations: {BOLD}{YELLOW}{cycles}{RESET}                                                {BOLD}{WHITE}║{RESET}")
     print(f"{BOLD}{WHITE}║{RESET}  Rule: Output[k-1] --> Input[k] across 20 compiler stages               {BOLD}{WHITE}║{RESET}")

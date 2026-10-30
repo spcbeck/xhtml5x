@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ouroboros-html Fixture Test Suite Runner
+xhtml5x Fixture Test Suite Runner
 Executes the full 20-stage compiler pipeline across multiple diverse HTML5 payloads.
 Enforces Bauhaus-inspired modular grid terminal reporting and strict DOM equivalence.
 """
@@ -24,7 +24,7 @@ WHITE_ON_BLACK = "\033[40;37m"
 
 def print_bauhaus_banner():
     print(f"\n{BOLD}{WHITE_ON_BLACK}========================================================================{RESET}")
-    print(f"{BOLD}  [OUROBOROS-HTML] COMPREHENSIVE FIXTURE SUITE & AST GENERALIZATION {RESET}")
+    print(f"{BOLD}  [XHTML5X] COMPREHENSIVE FIXTURE SUITE & AST GENERALIZATION        {RESET}")
     print(f"{BOLD}  Bauhaus Modular Verification Harness across 20 Compiler Runtimes   {RESET}")
     print(f"{BOLD}{WHITE_ON_BLACK}========================================================================{RESET}\n")
 

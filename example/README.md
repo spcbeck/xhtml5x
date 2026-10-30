@@ -1,6 +1,6 @@
 # Example App
 
-A zero-config, dependency-free example application compiled via the **ouroboros-html** 20-stage pipeline.
+A zero-config, dependency-free example application compiled via the **xhtml5x** 20-stage pipeline.
 
 ---
 
