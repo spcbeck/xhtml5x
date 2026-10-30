@@ -11,4 +11,4 @@ resolved_dom.html: output.html harness.js
 	node harness.js output.html resolved_dom.html
 
 clean:
-	rm -f resolved_dom.html output.html output.pug
+	rm -f resolved_dom.html output.html

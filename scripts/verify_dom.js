@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Stage 15: Deep DOM Tree Equivalence Asserter
+ * Stage 19: Deep DOM Tree Equivalence Asserter
  * Parses both input.html and output.html into independent JSDOM instances
  * and recursively compares node types, tag names, attribute sets, and text content.
  */

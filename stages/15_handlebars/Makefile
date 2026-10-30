@@ -8,4 +8,4 @@ output.html: ../14_xslt_pug/output.pug compile.js
 	node compile.js ../14_xslt_pug/output.pug output.html
 
 clean:
-	rm -f output.html template.hbs
+	rm -f output.html output.pug template.hbs

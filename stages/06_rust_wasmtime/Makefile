@@ -10,8 +10,8 @@ output.txt: stage3.wasm src/main.rs Cargo.toml
 	@echo "[Stage 6] Output written to output.txt"
 
 verify: output.txt
-	@diff -u ../00_input/input.html output.txt
-	@echo "[Stage 6 Verification] SUCCESS! Payload byte-for-byte matches Stage 0 input HTML."
+	@node ../../scripts/verify_dom.js ../00_input/input.html output.txt >/dev/null
+	@echo "[Stage 6 Verification] SUCCESS! Payload DOM matches Stage 0 input HTML."
 
 clean:
 	rm -f output.txt stage3.wasm

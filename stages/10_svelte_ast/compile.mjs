@@ -9,7 +9,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import * as parser from '@babel/parser';
 import babelTraverse from '@babel/traverse';
 import babelGenerator from '@babel/generator';
@@ -61,7 +61,7 @@ async function main() {
   fs.writeFileSync(svelteJsPath, svelteResult.js.code, 'utf8');
 
   // 4. Dynamically import & execute SSR render
-  const Component = (await import(svelteJsPath)).default;
+  const Component = (await import(pathToFileURL(svelteJsPath).href)).default;
   const { html: renderedHtml } = Component.render();
 
   // 5. Wrap rendered output back into JSX declaration for Stage 11

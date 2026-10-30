@@ -4,6 +4,7 @@ Brainfuck Stream Generator (text2bf)
 Encodes an input stream into standard Brainfuck tape instructions (+ - < > [ ] . ,).
 """
 
+import json
 import sys
 
 def encode_stream_to_bf(text: str) -> str:
@@ -32,9 +33,7 @@ def main():
         content = f.read().strip()
 
     # Wrap payload in ES5 JavaScript declaration for Stage 8 / Stage 9
-    # Note: escape double quotes in content if any
-    escaped_content = content.replace('"', '\\"')
-    es5_js = f'var html = "{escaped_content}";\n'
+    es5_js = f"var html = {json.dumps(content)};\n"
 
     bf_code = encode_stream_to_bf(es5_js)
 

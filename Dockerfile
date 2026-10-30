@@ -33,7 +33,34 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN if ! command -v beef >/dev/null 2>&1; then \
       echo "Compiling beef/brainfuck interpreter fallback..." && \
       mkdir -p /tmp/bf && \
-      printf '#include <stdio.h>\n#include <stdlib.h>\nint main(int argc, char** argv) {\n  if (argc < 2) return 1;\n  FILE* f = fopen(argv[1], "r");\n  if (!f) return 1;\n  fseek(f, 0, SEEK_END); long sz = ftell(f); fseek(f, 0, SEEK_SET);\n  char* code = malloc(sz + 1); fread(code, 1, sz, f); fclose(f);\n  char tape[65536] = {0}; int ptr = 0;\n  for (long pc = 0; pc < sz; pc++) {\n    switch(code[pc]) {\n      case ">": ptr++; break;\n      case "<": ptr--; break;\n      case "+": tape[ptr]++; break;\n      case "-": tape[ptr]--; break;\n      case ".": putchar(tape[ptr]); break;\n      case ",": tape[ptr] = getchar(); break;\n      case "[": if (!tape[ptr]) { int b=1; while (b) { pc++; if (code[pc]=="[") b++; else if (code[pc]=="]") b--; } } break;\n      case "]": if (tape[ptr]) { int b=1; while (b) { pc--; if (code[pc]=="]") b++; else if (code[pc]=="[") b--; } } break;\n    }\n  }\n  free(code); return 0;\n}\n' > /tmp/bf/bf.c && \
+      cat << 'EOF' > /tmp/bf/bf.c
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char** argv) {
+  if (argc < 2) return 1;
+  FILE* f = fopen(argv[1], "rb");
+  if (!f) return 1;
+  fseek(f, 0, SEEK_END); long sz = ftell(f); fseek(f, 0, SEEK_SET);
+  if (sz < 0) { fclose(f); return 1; }
+  char* code = malloc(sz + 1);
+  if (!code) { fclose(f); return 1; }
+  size_t read_bytes = fread(code, 1, sz, f); code[read_bytes] = '\0'; fclose(f);
+  unsigned char tape[65536] = {0}; int ptr = 0;
+  for (long pc = 0; pc < (long)read_bytes; pc++) {
+    switch(code[pc]) {
+      case '>': if (ptr < 65535) ptr++; break;
+      case '<': if (ptr > 0) ptr--; break;
+      case '+': tape[ptr]++; break;
+      case '-': tape[ptr]--; break;
+      case '.': putchar(tape[ptr]); break;
+      case ',': { int c = getchar(); tape[ptr] = (c == EOF) ? 0 : (unsigned char)c; break; }
+      case '[': if (!tape[ptr]) { int b=1; while (b > 0 && ++pc < (long)read_bytes) { if (code[pc]=='[') b++; else if (code[pc]==']') b--; } } break;
+      case ']': if (tape[ptr]) { int b=1; while (b > 0 && --pc >= 0) { if (code[pc]==']') b++; else if (code[pc]=='[') b--; } } break;
+    }
+  }
+  free(code); return 0;
+}
+EOF
       gcc -O3 /tmp/bf/bf.c -o /usr/local/bin/beef && \
       rm -rf /tmp/bf; \
     fi
@@ -86,7 +113,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # modules resolve reliably even when /workspace is mounted without node_modules
 WORKDIR /opt/node_app
 COPY package.json package-lock.json /opt/node_app/
-RUN npm ci
+RUN npm ci && ln -s /opt/node_app/node_modules /node_modules
 
 ENV NODE_PATH="/opt/node_app/node_modules:/workspace/node_modules"
 

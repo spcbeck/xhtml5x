@@ -1,14 +1,26 @@
 #!/usr/bin/env node
 
 /**
- * Stage 14: PostHTML / HTML minifier
+ * Stage 18: PostHTML / HTML minifier
  * Ingests XHTML document, parses AST through PostHTML, extracts the canonical
- * payload node, normalizes, and outputs clean HTML5.
+ * payload node, normalizes whitespace, and outputs clean HTML5.
  */
 
 const fs = require('fs');
 const posthtml = require('posthtml');
 const { render } = require('posthtml-render');
+
+function normalizeAstWhitespace(node) {
+  if (typeof node === 'string') {
+    return node.replace(/^\n+|\n+$/g, '');
+  }
+  if (node && Array.isArray(node.content)) {
+    node.content = node.content
+      .map(normalizeAstWhitespace)
+      .filter((child) => !(typeof child === 'string' && child.length === 0));
+  }
+  return node;
+}
 
 function main() {
   const inputFile = process.argv[2] || 'output.xhtml';
@@ -20,7 +32,7 @@ function main() {
   posthtml([
     (tree) => {
       tree.match({ tag: 'article' }, (node) => {
-        articleNode = node;
+        articleNode = normalizeAstWhitespace(node);
         return node;
       });
     }

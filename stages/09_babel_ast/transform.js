@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Stage 7: Babel AST pipeline
+ * Stage 9: Babel AST pipeline
  * Parses ES5 JS AST, extracts HTML string, parses into JSX AST,
  * and emits a valid JSX file.
  */

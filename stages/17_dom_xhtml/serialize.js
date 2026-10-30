@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Stage 13: DOM serialization to XHTML 1.0 Strict
+ * Stage 17: DOM serialization to XHTML 1.0 Strict
  * Wraps and serializes the resolved DOM node using XMLSerializer into
  * an authentic, schema-valid XHTML 1.0 Strict document.
  */

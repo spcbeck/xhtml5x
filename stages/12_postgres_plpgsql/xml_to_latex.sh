@@ -29,7 +29,7 @@ XML_CONTENT=$(cat "${INPUT_XML}")
 execute_psql << EOF > "${OUTPUT_TEX}"
 CREATE TEMPORARY TABLE IF NOT EXISTS xml_store (payload xml);
 DELETE FROM xml_store;
-INSERT INTO xml_store (payload) VALUES ('${XML_CONTENT}'::xml);
+INSERT INTO xml_store (payload) VALUES (\$xml\$${XML_CONTENT}\$xml\$::xml);
 
 CREATE OR REPLACE FUNCTION xml_node_to_latex(n xml) RETURNS text LANGUAGE plpgsql AS \$\$
 DECLARE

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ouroboros-html Fixture Test Suite Runner
-Executes the full 16-stage compiler pipeline across multiple diverse HTML5 payloads.
+Executes the full 20-stage compiler pipeline across multiple diverse HTML5 payloads.
 Enforces Bauhaus-inspired modular grid terminal reporting and strict DOM equivalence.
 """
 
@@ -29,7 +29,8 @@ def print_bauhaus_banner():
     print(f"{BOLD}{WHITE_ON_BLACK}========================================================================{RESET}\n")
 
 def run_pipeline():
-    """Runs make all to execute stages 0-19."""
+    """Runs make clean && make all to execute stages 0-19 cleanly."""
+    subprocess.run(["make", "clean"], capture_output=True, text=True)
     res = subprocess.run(["make", "all"], capture_output=True, text=True)
     return res.returncode == 0, res.stdout, res.stderr
 

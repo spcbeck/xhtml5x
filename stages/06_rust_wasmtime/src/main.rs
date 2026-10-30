@@ -11,7 +11,7 @@ fn main() -> Result<()> {
         anyhow::bail!("Wasm bytecode stage3.wasm does not exist");
     }
 
-    println!("[Stage 4] Initializing Wasmtime engine...");
+    println!("[Stage 6] Initializing Wasmtime engine...");
     let engine = Engine::default();
     let module = Module::from_file(&engine, wasm_file)
         .context("Failed to load and compile WebAssembly module")?;
@@ -54,7 +54,7 @@ fn main() -> Result<()> {
     let payload = std::str::from_utf8(&mem_data[ptr..ptr + end])
         .context("WebAssembly payload is not valid UTF-8")?;
 
-    println!("[Stage 4] Successfully executed WebAssembly and extracted payload:\n{}", payload);
+    println!("[Stage 6] Successfully executed WebAssembly and extracted payload:\n{}", payload);
 
     fs::write("output.txt", format!("{}\n", payload))
         .context("Failed to write output.txt")?;

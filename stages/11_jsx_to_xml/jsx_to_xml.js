@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Stage 8: JSX to Strict XML compiler
- * Ingests JSX AST from Babel and recursively transforms it into strict XML.
+ * Stage 11: JSX to Strict XML compiler
+ * Ingests JSX AST from Babel/Svelte and recursively transforms it into strict XML.
  */
 
 const fs = require('fs');

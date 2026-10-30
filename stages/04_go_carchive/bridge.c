@@ -43,6 +43,6 @@ int main(void) {
 
     fclose(out);
     FreePayload(payload);
-    printf("[Stage 2] bridge successfully linked libstage2.a and generated wrapper.c\n");
+    printf("[Stage 4] bridge successfully linked libstage2.a and generated wrapper.c\n");
     return 0;
 }

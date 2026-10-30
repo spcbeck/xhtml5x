@@ -99,7 +99,7 @@ def main():
                 sys.exit(1)
 
             if not os.path.exists(output_file):
-                print(f"{RED}[Gen {k:02d} Error] Stage 14 output.html missing!{RESET}")
+                print(f"{RED}[Gen {k:02d} Error] Stage 18 output.html missing!{RESET}")
                 sys.exit(1)
 
             with open(output_file, "r", encoding="utf-8") as f:

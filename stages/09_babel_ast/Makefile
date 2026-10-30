@@ -2,7 +2,7 @@
 
 all: output.jsx
 	mkdir -p ../10_svelte_ast
-	cp output.jsx ../10_svelte_ast/output.jsx
+	cp output.jsx ../10_svelte_ast/input.jsx
 
 output.js: ../08_brainfuck_runtime/output.js
 	cp ../08_brainfuck_runtime/output.js output.js
