@@ -1,6 +1,6 @@
 {
   "name": "xhtml5x",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An intentionally absurd, Rube Goldberg compiler pipeline for HTML5",
   "private": true,
   "dependencies": {
