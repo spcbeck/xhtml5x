@@ -33,34 +33,33 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN if ! command -v beef >/dev/null 2>&1; then \
       echo "Compiling beef/brainfuck interpreter fallback..." && \
       mkdir -p /tmp/bf && \
-      cat << 'EOF' > /tmp/bf/bf.c
-#include <stdio.h>
-#include <stdlib.h>
-int main(int argc, char** argv) {
-  if (argc < 2) return 1;
-  FILE* f = fopen(argv[1], "rb");
-  if (!f) return 1;
-  fseek(f, 0, SEEK_END); long sz = ftell(f); fseek(f, 0, SEEK_SET);
-  if (sz < 0) { fclose(f); return 1; }
-  char* code = malloc(sz + 1);
-  if (!code) { fclose(f); return 1; }
-  size_t read_bytes = fread(code, 1, sz, f); code[read_bytes] = '\0'; fclose(f);
-  unsigned char tape[65536] = {0}; int ptr = 0;
-  for (long pc = 0; pc < (long)read_bytes; pc++) {
-    switch(code[pc]) {
-      case '>': if (ptr < 65535) ptr++; break;
-      case '<': if (ptr > 0) ptr--; break;
-      case '+': tape[ptr]++; break;
-      case '-': tape[ptr]--; break;
-      case '.': putchar(tape[ptr]); break;
-      case ',': { int c = getchar(); tape[ptr] = (c == EOF) ? 0 : (unsigned char)c; break; }
-      case '[': if (!tape[ptr]) { int b=1; while (b > 0 && ++pc < (long)read_bytes) { if (code[pc]=='[') b++; else if (code[pc]==']') b--; } } break;
-      case ']': if (tape[ptr]) { int b=1; while (b > 0 && --pc >= 0) { if (code[pc]==']') b++; else if (code[pc]=='[') b--; } } break;
-    }
-  }
-  free(code); return 0;
-}
-EOF
+      printf '%s\n' \
+        '#include <stdio.h>' \
+        '#include <stdlib.h>' \
+        'int main(int argc, char** argv) {' \
+        '  if (argc < 2) return 1;' \
+        '  FILE* f = fopen(argv[1], "rb");' \
+        '  if (!f) return 1;' \
+        '  fseek(f, 0, SEEK_END); long sz = ftell(f); fseek(f, 0, SEEK_SET);' \
+        '  if (sz < 0) { fclose(f); return 1; }' \
+        '  char* code = malloc(sz + 1);' \
+        '  if (!code) { fclose(f); return 1; }' \
+        '  size_t read_bytes = fread(code, 1, sz, f); code[read_bytes] = 0; fclose(f);' \
+        '  unsigned char tape[65536] = {0}; int ptr = 0;' \
+        '  for (long pc = 0; pc < (long)read_bytes; pc++) {' \
+        '    switch(code[pc]) {' \
+        '      case 62: if (ptr < 65535) ptr++; break;' \
+        '      case 60: if (ptr > 0) ptr--; break;' \
+        '      case 43: tape[ptr]++; break;' \
+        '      case 45: tape[ptr]--; break;' \
+        '      case 46: putchar(tape[ptr]); break;' \
+        '      case 44: { int c = getchar(); tape[ptr] = (c == EOF) ? 0 : (unsigned char)c; break; }' \
+        '      case 91: if (!tape[ptr]) { int b=1; while (b > 0 && ++pc < (long)read_bytes) { if (code[pc]==91) b++; else if (code[pc]==93) b--; } } break;' \
+        '      case 93: if (tape[ptr]) { int b=1; while (b > 0 && --pc >= 0) { if (code[pc]==93) b++; else if (code[pc]==91) b--; } } break;' \
+        '    }' \
+        '  }' \
+        '  free(code); return 0;' \
+        '}' > /tmp/bf/bf.c && \
       gcc -O3 /tmp/bf/bf.c -o /usr/local/bin/beef && \
       rm -rf /tmp/bf; \
     fi
