@@ -10,7 +10,7 @@ The fundamental theorem of software engineering has been described as: "Any prob
 
 The theorem is frequently followed by "except for the problem of too many layers of indirection." This is where **xhtml5x** also seeks to prove that theorem wrong. 
 
-But what's important is that you use **xhtml5x** instead of HTML. This abstraction layer provides all the functionalty of HMTL5! What more can you ask for?
+But what's important is that you use **xhtml5x** instead of HTML. Raw HTML5 is not webscale. **xhtml5x** is webscale. This abstraction layer provides all the functionalty of HMTL5! What more can you ask for?
 
 I absolutely definitely didn't use AI for any of this, and I understand every layer of the stack described below in the most minute details. Go ahead. Test me.
 
@@ -89,29 +89,29 @@ I absolutely definitely didn't use AI for any of this, and I understand every la
 
 ---
 
-## Run Instantly with Docker / GHCR
+## Docker / GHCR
 
-Pre-built multi-runtime container images are automatically published to the GitHub Container Registry. No local toolchain installation required.
+Pre-built container images are published to the GitHub Container Registry.
 
 ### 1. Run All 20 Compiler Stages
 ```bash
 docker run --rm ghcr.io/spcbeck/xhtml5x:latest
 ```
 
-### 2. Run Comprehensive HTML5 Fixture Suite
-Empirically verifies that the pipeline compiles diverse HTML structures (nested lists, multi-paragraphs, blockquotes):
+### 2. Run HTML5 Fixture Suite
+Runs the pipeline against several HTML structures (nested lists, paragraphs, blockquotes):
 ```bash
 docker run --rm ghcr.io/spcbeck/xhtml5x:latest make test-suite
 ```
 
-### 3. Run Recursive Ouroboros Idempotency Loop
-Demonstrates mathematical idempotency ($\forall k \in [1..N], \text{DOM}(\text{Pipeline}^k(S_0)) \equiv \text{DOM}(S_0)$) by feeding the output of Stage 18 back into Stage 0 for $N$ generations:
+### 3. Run Recursive Idempotency Loop
+Feeds the output of Stage 18 back into Stage 0 for $N$ generations ($\forall k \in [1..N], \text{DOM}(\text{Pipeline}^k(S_0)) \equiv \text{DOM}(S_0)$):
 ```bash
 docker run --rm ghcr.io/spcbeck/xhtml5x:latest make ouroboros CYCLES=3
 ```
 
 ### 4. Compile the Example App
-Compiles `example/index.html` through the entire 20-stage pipeline into `example/dist/index.html`:
+Compiles `example/index.html` through the 20-stage pipeline into `example/dist/index.html`:
 ```bash
 docker run --rm -v "$(pwd):/workspace" -w /workspace ghcr.io/spcbeck/xhtml5x:latest make example
 ```
@@ -143,7 +143,7 @@ make docker-example
 
 ## Fixture Suite & AST Generalization
 
-The test harness in `scripts/test_suite.py` exercises multiple distinct HTML5 payloads across all 20 stages:
+The test harness in `scripts/test_suite.py` runs HTML5 fixtures through all 20 stages:
 
 | Fixture | Structure Tested | Runtimes Exercised |
 | :--- | :--- | :--- |
@@ -163,7 +163,7 @@ $$\forall k \ge 1, \quad \operatorname{DOM}\left(\mathcal{P}^k\left(S_0\right)\r
 Where $\mathcal{P}$ represents the composition of all 20 stages:
 $$\mathcal{P} = \mathcal{S}_{19} \circ \mathcal{S}_{18} \circ \dots \circ \mathcal{S}_1 \circ \mathcal{S}_0$$
 
-Every generation is stored as an immutable snapshot in `artifacts/gen_NN_output.html` and verified via recursive JSDOM tree assertions.
+Each generation is saved to `artifacts/gen_NN_output.html` and checked via JSDOM tree assertions.
 
 ---
 
